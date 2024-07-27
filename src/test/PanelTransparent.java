@@ -4,7 +4,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class PanelTransparent extends JPanel {
 
@@ -20,7 +20,7 @@ public class PanelTransparent extends JPanel {
 
     public PanelTransparent() {
         setOpaque(false);
-        setBackground(new Color(255, 255, 255));
+        setBackground(new Color(0, 0, 0));
     }
 
     @Override
@@ -32,4 +32,6 @@ public class PanelTransparent extends JPanel {
         g2.setComposite(AlphaComposite.SrcOver);
         super.paint(grphcs);
     }
+
+
 }

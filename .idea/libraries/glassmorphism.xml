@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="glassmorphism">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/glassmorphism.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
