@@ -10,7 +10,11 @@ import ru.krlvm.swingacrylic.SwingAcrylic;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.time.LocalTime;
 import java.util.Collections;
 
 /**
@@ -18,6 +22,8 @@ import java.util.Collections;
  * @author RAVEN
  */
 public class Main2 extends javax.swing.JFrame {
+
+    private Color defClr = new Color(70,73,75);
 
     /**
      * Creates new form Main
@@ -35,23 +41,64 @@ public class Main2 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-
-        JButton button = new JButton("Click me");
-        button.setSize(10,10);
-        button.setVisible(true);
-
-        JList<String> list = new JList<String>();
-        list.setListData(new String[] {"Hello", "World"});
-        list.setPreferredSize(new Dimension(100, 100));
+        LocalTime cT = LocalTime.now();
+        String currentTime = String.valueOf(cT).substring(0, String.valueOf(cT).lastIndexOf(":"));
+        System.out.println("Current time: " + currentTime);
 
 
-        panelTransparent1.add(button);
-        panelTransparent1.add(list);
+        clock = new JLabel(currentTime);
+        clock.setPreferredSize(new Dimension(200,100));
+        clock.setFont(new Font("Bahnschrift", 1, 50));
+
+        JButton closeButton = new JButton("X");
+        closeButton.setPreferredSize(new Dimension(25,25));
+        closeButton.setToolTipText("Exit Program?");
+
+        JButton pinButton = new JButton("\uD83D\uDCCC");
+        pinButton.setPreferredSize(new Dimension(25,25));
+
+        panelTransparent1.add(clock);
+        panelTransparent1.add(closeButton);
+        panelTransparent1.add(pinButton);
 
         panelTransparent1.add(jLabel1);
 
 
         add(panelTransparent1);
+
+        closeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        closeButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                closeButton.setBackground(new Color(148,58,64));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                closeButton.setBackground(defClr);
+            }
+        });
 
         pack();
     }
@@ -95,6 +142,24 @@ public class Main2 extends javax.swing.JFrame {
 
                 fram.toBack();
 
+                Thread thread = new Thread(){
+                    public void run(){
+                        while (true){
+                            try {
+                                Thread.sleep(5000);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            LocalTime cT = LocalTime.now();
+                            String currentTime = String.valueOf(cT).substring(0, String.valueOf(cT).lastIndexOf(":"));
+                            System.out.println("Current time: " + currentTime);
+                            clock.setText(currentTime);
+                        }
+                    }
+                };
+
+                thread.start();
+
 
             }
         });
@@ -102,6 +167,8 @@ public class Main2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+
+    private static JLabel clock;
 
     private PanelTransparent panelTransparent1;
 }
